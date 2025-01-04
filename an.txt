@@ -1,0 +1,53 @@
+  @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == loginButton) {
+            String email = emailText.getText();
+            String password = new String(passwordText.getPassword());
+
+            // Validate credentials (replace with database logic)
+            if (validateCredentials(email, password)) {
+                messageLabel.setText("Login Successful!");
+                messageLabel.setForeground(Color.GREEN);
+            } else {
+                messageLabel.setText("Invalid email or password.");
+                messageLabel.setForeground(Color.RED);
+            }
+        }
+    }
+
+    // Sample credential validation (replace with database logic)
+    private boolean validateCredentials(String email, String password) {
+        try {
+            // Replace with your database connection details
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/signup", "root", "password");
+            String query = "SELECT * FROM user WHERE Email = ? AND Password = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2, password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            boolean isValid = resultSet.next(); // Returns true if a record exists
+            connection.close();
+            return isValid;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+}
+
+public class Login {
+    public static void main(String[] args) {
+        LoginFrame frame = new LoginFrame();
+        frame.setSize(400, 300);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+}
+.................................................................................................
+
+String[] xx={"java,kk"};
+        JComboBox cono =new JComboBox<>(xx);
+        cono.addActionListener(this);
+        cono.getSelectedItem()
